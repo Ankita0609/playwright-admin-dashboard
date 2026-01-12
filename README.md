@@ -1,5 +1,7 @@
 ![Jenkins Build](http://localhost:8080/job/playwright-admin-dashboard/badge/icon)
 
+> CI powered by Jenkins (local Windows setup). Pipeline and Jenkinsfile are production-ready.
+
 # Playwright Admin Dashboard Automation (CI-Ready)
 
 End-to-end automation of a real-world **Admin Dashboard** using **Playwright + TypeScript**, designed with **production-grade stability** and integrated with **Jenkins CI (Windows)**.
