@@ -1,23 +1,46 @@
 pipeline {
     agent any
 
+    tools {
+        nodejs 'NodeJS-18'
+    }
+
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Build step goes here'
+                bat 'npm ci'
             }
         }
 
-        stage('Test') {
+        stage('Install Playwright Browsers') {
             steps {
-                echo 'Test step goes here'
+                bat 'npx playwright install'
             }
+        }
+
+        stage('Run Playwright Tests') {
+            steps {
+                bat 'npx playwright test --project=admin-tests'
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+        }
+        failure {
+            echo '❌ Playwright tests failed'
+        }
+        success {
+            echo '✅ Playwright tests passed'
         }
     }
 }
